@@ -8,7 +8,7 @@ android.sourceSets.main.assets.srcDirs += file("$buildDir/intermediates/ReactNat
  */
 afterEvaluate {
     def config = project.hasProperty("vectoricons") ? project.vectoricons : [];
-    def iconFontsDir = config.iconFontsDir ?: "../../node_modules/react-native-vector-icons/Fonts";
+    def iconFontsDir = config.iconFontsDir ?: "../../node_modules/@attarchi/react-native-vector-icons/Fonts";
     def iconFontNames = config.iconFontNames ?: [ "*.ttf" ];
 
     def fontCopyTask = tasks.create(
@@ -27,7 +27,7 @@ afterEvaluate {
     android.applicationVariants.all { def variant ->
         def targetName = variant.name.capitalize()
         def lintVitalAnalyzeTask = tasks.findByName("lintVitalAnalyze${targetName}")
-      
+
         if (lintVitalAnalyzeTask) {
         lintVitalAnalyzeTask.dependsOn(fontCopyTask)
         }
@@ -36,7 +36,7 @@ afterEvaluate {
         if (generateReportTask) {
             generateReportTask.dependsOn(fontCopyTask)
         }
-      
+
         def generateAssetsTask = tasks.findByName("generate${targetName}Assets")
         generateAssetsTask.dependsOn(fontCopyTask)
       }
